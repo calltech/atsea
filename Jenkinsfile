@@ -46,6 +46,7 @@ pipeline {
         stage('Building Front end application') {
             steps {
                 echo 'Running build automation'
+                sh 'cd app/react-app'
                 sh 'node -v'
                 sh 'npm prune'
                 sh 'npm install'
