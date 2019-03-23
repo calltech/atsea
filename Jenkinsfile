@@ -49,7 +49,7 @@ pipeline {
                 sh 'cd app/react-app && npm install'
                // sh 'cd app/react-app && npm test'
                 sh 'cd app/react-app && npm run build'
-                archiveArtifacts artifacts: 'dist/**' //onlyIfSuccessful: true
+                //archiveArtifacts artifacts: 'dist/**' //onlyIfSuccessful: true
             }
         }
 
@@ -57,7 +57,7 @@ pipeline {
         stage('Building Backend Application') {
             steps {
                 echo 'Running Build for Backend'
-                sh 'mvn -B -f app/pom.xml'
+                sh 'cd app/ && mvn -B -f pom.xml'
             }
         }
 
