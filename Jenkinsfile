@@ -43,12 +43,12 @@ pipeline {
         stage('Building Front end application') {
             steps {
                 echo 'Running build automation'
-                sh 'cd app/react-app'
-                sh 'node -v'
-                sh 'npm prune'
-                sh 'npm install'
-                sh 'npm test'
-                sh 'npm run build'
+              //  sh 'cd app/react-app'
+                sh 'cd app/ract-app && npm prune'
+               // sh 'npm prune'
+                sh 'cd app/react-app && npm install'
+                sh 'cd app/react-app && npm test'
+                sh 'cd app/react-app && npm run build'
                 archiveArtifacts artifacts: 'dist/**' //onlyIfSuccessful: true
             }
         }
