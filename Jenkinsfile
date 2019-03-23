@@ -44,7 +44,7 @@ pipeline {
             steps {
                 echo 'Running build automation'
               //  sh 'cd app/react-app'
-                sh 'cd app/ract-app && npm prune'
+                sh 'cd app/react-app && npm prune'
                // sh 'npm prune'
                 sh 'cd app/react-app && npm install'
                // sh 'cd app/react-app && npm test'
