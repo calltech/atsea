@@ -10,6 +10,10 @@ pipeline {
     }
 
     // Building the application and saving it as an jenkins artifact in dist folder
+    stages {
+
+
+    
 
 // Unit Tests ...
     stage('Unit Tests') {
