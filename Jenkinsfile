@@ -10,13 +10,6 @@ pipeline {
     }
 
     // Building the application and saving it as an jenkins artifact in dist folder
-    stages {
-
-
-    stage('Pull from git') {
-        checkout scm
-    }
-
 
 // Unit Tests ...
     stage('Unit Tests') {
