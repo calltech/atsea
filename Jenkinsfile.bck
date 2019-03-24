@@ -62,7 +62,21 @@ pipeline {
         }
 
 
-// bu
+// building docker image fro front end
+        stage('Build Docker Image for Frontend') {
+           // when {
+               // branch 'master'
+         //   }
+            steps {
+                script {
+                    //dockerfile = 'app/Dockerfile'
+                    app = docker.build("frontend-image:${env.BUILD_ID}", "./app/")
+                    app.inside {
+                        sh 'echo Hello, World!'
+                    }
+                }
+            }
+        }
 
 
 
@@ -75,7 +89,7 @@ pipeline {
             steps {
                 script {
                    // dockerfile_backend = 'app/Dockerfile'
-                    app = docker.build("backend-image:${env.BUILD_ID}", "./database/")
+                    app = docker.build("backend-image:${env.BUILD_ID}", "/database/")
                     app.inside {
                         sh 'echo Hello, World!'
                     }
