@@ -119,7 +119,7 @@ stages {
 
 
 
-        stage('Deploy Image') {
+        stage('Deploy Frontend Image') {
         steps{
             script {
                 docker.withRegistry( '', registryCredential ) {
@@ -148,7 +148,7 @@ stages {
         // }
 
 
-        stage('Deploy Image') {
+        stage('Deploy backend Image') {
             steps{
                 script {
                     docker.withRegistry( '', registryCredential ) {
