@@ -74,7 +74,7 @@ pipeline {
             steps {
                 script {
                     echo 'Building docker image'
-                     frontend = docker.build(frontendregistry, "./app/")
+                    def frontend = docker.build(frontendregistry, "./app/")
                 }
             }
         }
@@ -89,7 +89,7 @@ pipeline {
             }
             steps {
                 script {
-                    backend = docker.build(backendregistry, "./database/")
+                   def backend = docker.build(backendregistry, "./database/")
                     
                 }
             }
@@ -99,68 +99,44 @@ pipeline {
 
 
 // Pushing frontwnd docker image to the registry
-        // stage('Pushing frontend docker image to reository') {
-        //     when {
-        //         branch 'master'
-        //     }
-        //     steps {
-        //         script {
-        //         docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
-        //         //frontend.push()
-        //              //sh 'docker tag atsea-shop-demo:latest programmer26/atsea-shop-demo:latest'
-        //         sh "docker login -u programmer26 -p 612254Abc"
-        //         sh "docker push programmer26/atsea-shop-demo:latest"
-        //         }
+        stage('Pushing frontend docker image to reository') {
+            when {
+                branch 'master'
+            }
+            steps {
+                script {
+                docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
+                //frontend.push()
+                     //sh 'docker tag atsea-shop-demo:latest programmer26/atsea-shop-demo:latest'
+                sh "docker login -u programmer26 -p 612254Abc"
+                sh "docker push programmer26/atsea-shop-demo:latest"
+                }
                
-        //         }
+                }
               
-        //     }
-        // }
-
-
-
-    stage('Deploy Image') {
-      steps{
-         script {
-            docker.withRegistry( '', registryCredential ) {
-            frontend.push()
-          }
+            }
         }
-      }
-    }
+
+
+
 
 // pushing docker image to the docker repository
-        // stage('Push Docker Image') {
-        //     when {
-        //         branch 'master'
-        //     }
-        //     steps {
-        //         script {
-        //         docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
-        //             // backend.push()
-        //         sh "docker login -u programmer26 -p 612254Abc"
-        //         sh "docker push programmer26/atsea-shop-backend:latest"
-        //         }
+        stage('Push Docker Image') {
+            when {
+                branch 'master'
+            }
+            steps {
+                script {
+                docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
+                    // backend.push()
+                sh "docker login -u programmer26 -p 612254Abc"
+                sh "docker push programmer26/atsea-shop-backend:latest"
+                }
                
-        //         }
+                }
                 
-        //     }
-        // }
-
-
-        stage('Deploy Image') {
-        steps{
-            script {
-                docker.withRegistry( '', registryCredential ) {
-                backend.push()
-            }
             }
         }
-        }
-
-
-
-
 
         // Deploying it to productions
         // stage('DeployToProduction') {
@@ -179,4 +155,3 @@ pipeline {
         // }
     }
 }
-
