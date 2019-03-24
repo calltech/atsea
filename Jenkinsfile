@@ -46,10 +46,10 @@ pipeline {
             }
             steps {
                 echo 'Running build automation'
-                //sh 'cd app/react-app && npm prune'
-               // sh 'cd app/react-app && npm install'
+                sh 'cd app/react-app && npm prune'
+                sh 'cd app/react-app && npm install'
                 //sh 'cd app/react-app && npm test'
-               // sh 'cd app/react-app && npm run build'
+                sh 'cd app/react-app && npm run build'
                 //archiveArtifacts artifacts: 'dist/**' //onlyIfSuccessful: true
             }
         }
@@ -61,7 +61,7 @@ pipeline {
             }
             steps {
                 echo 'Running Build for Backend'
-                //sh 'cd app && mvn clean install -DskipTests -f pom.xml'
+                sh 'cd app && mvn clean install -DskipTests -f pom.xml'
             }
         }
 
