@@ -119,15 +119,15 @@ pipeline {
 
 
 
-    stage('Deploy Image') {
-      steps{
-         script {
-            docker.withRegistry( '', registryCredential ) {
-            frontend.push()
-          }
+        stage('Deploy Image') {
+        steps{
+            script {
+                docker.withRegistry( '', registryCredential ) {
+                frontend.push()
+            }
+            }
         }
-      }
-    }
+        }
 
 // pushing docker image to the docker repository
         // stage('Push Docker Image') {
