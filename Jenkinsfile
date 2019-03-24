@@ -62,9 +62,9 @@ pipeline {
 
 // building docker image fro front end
         stage('Build Docker Image for Frontend') {
-           // when {
-               // branch 'master'
-         //   }
+            when {
+                branch 'master'
+            }
             steps {
                 script {
                    def frontend = docker.build(frontendregistry, "./app/")
@@ -75,19 +75,19 @@ pipeline {
 // Pushing frontwnd docker image to the registry
         stage('Pushing frontend docker image to reository') {
             steps {
-                script {
-                    docker.withRegistry('https://registry.hub.docker.com', 'dockerhub')
-                    frontend.push()
-                }
+                
+                docker.withRegistry('https://registry.hub.docker.com', 'dockerhub')
+                frontend.push()
+              
             }
         }
 
 
         // building docker image for backend
         stage('Build Docker Image for Backend') {
-           // when {
-           //     branch 'master'
-          //  }
+            when {
+                branch 'master'
+            }
             steps {
                 script {
                    def backend = docker.build(backendregistry, "./database/")
@@ -102,15 +102,14 @@ pipeline {
 
 // pushing docker image to the docker repository
         stage('Push Docker Image') {
-          //  when {
-               // branch 'master'
-           // }
+            when {
+                branch 'master'
+            }
             steps {
-                script {
-                    docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
-                        backend.push()
-                    }
-                }
+                docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') 
+                backend.push()
+                    
+                
             }
         }
 
