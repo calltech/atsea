@@ -1,7 +1,7 @@
 pipeline {
     // let jenkins assign proper  agent to run the tasks. if agent is none 
     // then we will have to assign angets manually with each step. 
-  agent any
+    agent any
     environment {
         // Define var for docker image 
         frontendregistry = "programmer26/atsea-shop-demo"
@@ -16,9 +16,9 @@ pipeline {
     
 
 // Unit Tests ...
-    stage('Unit Tests') {
-        steps {
-            echo 'Unit test begins ..... '
+        stage('Unit Tests') {
+            steps {
+               echo 'Unit test begins ..... '
             // unstash 'node_modules'
             // sh 'yarn test:ci'
             // junit 'reports/**/*.xml'
@@ -26,9 +26,9 @@ pipeline {
     }
 
 // End to end tests , 
-    stage ('End to End test'){
-        steps {
-            echo 'End to End Tests Start Now!'
+        stage('End to End test'){
+            steps {
+                echo 'End to End Tests Start Now!'
             // unstash 'node_modules'
             // sh 'mkdir -p reports'
             // sh 'yarn e2e:pre-ci'
