@@ -89,7 +89,7 @@ pipeline {
                 docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
                      //app.push()
                      //sh 'docker tag atsea-shop-demo:latest programmer26/atsea-shop-demo:latest'
-                     sh 'docker push --tag programmer26/atsea-shop-demo:latest'
+                     sh 'docker push programmer26/atsea-shop-demo'
                 }
                
                 }
