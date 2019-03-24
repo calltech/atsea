@@ -76,7 +76,7 @@ pipeline {
         stage('Pushing frontend docker image to reository') {
             steps {
                 script {
-                    docker.withRegistry('https://registry.hub.docker.com', registryCredential)
+                    docker.withRegistry('https://registry.hub.docker.com', 'dockerhub')
                     frontend.push('latest')
                 }
             }
@@ -107,7 +107,7 @@ pipeline {
            // }
             steps {
                 script {
-                    docker.withRegistry('https://registry.hub.docker.com', registryCredential) {
+                    docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
                         backend.push("latest")
                     }
                 }
