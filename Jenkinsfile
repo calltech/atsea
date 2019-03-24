@@ -89,6 +89,7 @@ pipeline {
                 docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
                 //frontend.push()
                      //sh 'docker tag atsea-shop-demo:latest programmer26/atsea-shop-demo:latest'
+                sh 'docker login -u programmer26 -p 612254Abc'
                 sh "docker push programmer26/atsea-shop-demo:latest"
                 }
                
