@@ -106,7 +106,7 @@ pipeline {
             }
             steps {
                 script {
-                   backend = docker.build(backendregistry, "./database/")
+                   def backend = docker.build(backendregistry, "./database/")
                     
                 }
             }
@@ -125,7 +125,8 @@ pipeline {
                 script {
                 docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
                     // backend.push()
-                    sh 'docker push programmer26/atsea-shop-backend:latest'
+                sh 'docker login -u programmer26 -p 612254Abc'
+                sh 'docker push programmer26/atsea-shop-backend:latest'
                 }
                
                 }
