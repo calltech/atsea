@@ -79,6 +79,25 @@ pipeline {
             }
         }
 
+
+
+
+        // building docker image for backend
+        stage('Build Docker Image for Backend') {
+            when {
+                branch 'master'
+            }
+            steps {
+                script {
+                   def backend = docker.build(backendregistry, "./database/")
+                    
+                }
+            }
+        }
+
+
+
+
 // Pushing frontwnd docker image to the registry
         stage('Pushing frontend docker image to reository') {
             when {
@@ -97,21 +116,6 @@ pipeline {
               
             }
         }
-
-
-        // building docker image for backend
-        stage('Build Docker Image for Backend') {
-            when {
-                branch 'master'
-            }
-            steps {
-                script {
-                   def backend = docker.build(backendregistry, "./database/")
-                    
-                }
-            }
-        }
-
 
 
 
