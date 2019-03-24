@@ -41,6 +41,9 @@ pipeline {
 
 // Build the application
         stage('Building Front end application') {
+            when {
+                branch 'master'
+            }
             steps {
                 echo 'Running build automation'
                 sh 'cd app/react-app && npm prune'
@@ -53,6 +56,9 @@ pipeline {
 
         // Building Backend Application
         stage('Building Backend Application') {
+            when {
+                branch 'master'
+            }
             steps {
                 echo 'Running Build for Backend'
                 sh 'cd app && mvn clean install -DskipTests -f pom.xml'
@@ -74,9 +80,12 @@ pipeline {
 
 // Pushing frontwnd docker image to the registry
         stage('Pushing frontend docker image to reository') {
+            when {
+                branch 'master'
+            }
             steps {
                 script {
-                docker.withRegistry('https://registry.hub.docker.com', 'dockerhub')
+                withDockerRegistry('https://registry.hub.docker.com', 'dockerhub')
                 frontend.push()
                 }
               
@@ -108,7 +117,7 @@ pipeline {
             }
             steps {
                 script {
-                docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') 
+                withDockerRegistry('https://registry.hub.docker.com', 'dockerhub') 
                 backend.push()
                 }
                 
