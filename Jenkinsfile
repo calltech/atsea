@@ -10,7 +10,7 @@ pipeline {
     }
 
     // Building the application and saving it as an jenkins artifact in dist folder
-    stages {
+stages {
 
 
     
@@ -149,11 +149,11 @@ pipeline {
 
 
         stage('Deploy Image') {
-        steps{
-            script {
-                docker.withRegistry( '', registryCredential ) {
-                backend.push()
-            }
+            steps{
+                script {
+                    docker.withRegistry( '', registryCredential ) {
+                    backend.push()
+                }
             }
         }
         }
