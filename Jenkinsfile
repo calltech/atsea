@@ -87,9 +87,9 @@ pipeline {
             steps {
                 script {
                 docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
-                frontend.push()
+                //frontend.push()
                      //sh 'docker tag atsea-shop-demo:latest programmer26/atsea-shop-demo:latest'
-                     //sh "docker push programmer26/atsea-shop-demo:latest"
+                sh "docker push programmer26/atsea-shop-demo:latest"
                 }
                
                 }
