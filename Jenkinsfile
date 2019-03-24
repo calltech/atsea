@@ -4,8 +4,8 @@ pipeline {
   agent any
     environment {
         // Define var for docker image 
-        FRONTEND_IMAGE = "programmer26/frontend-atsa-shop"
-        BACKEND_IMAGE = "programmer26/backend-atsa-shop"
+        frontend-registry = "programmer26/atsea-shop-demo"
+        backend-registry = "programmer26/atsea-shop-backend"
         registryCredential = 'dockerhub'
     }
 
@@ -43,12 +43,10 @@ pipeline {
         stage('Building Front end application') {
             steps {
                 echo 'Running build automation'
-              //  sh 'cd app/react-app'
-              //  sh 'cd app/react-app && npm prune'
-               // sh 'npm prune'
-               // sh 'cd app/react-app && npm install'
-               // sh 'cd app/react-app && npm test'
-              //  sh 'cd app/react-app && npm run build'
+                sh 'cd app/react-app && npm prune'
+                sh 'cd app/react-app && npm install'
+                //sh 'cd app/react-app && npm test'
+                sh 'cd app/react-app && npm run build'
                 //archiveArtifacts artifacts: 'dist/**' //onlyIfSuccessful: true
             }
         }
@@ -57,14 +55,32 @@ pipeline {
         stage('Building Backend Application') {
             steps {
                 echo 'Running Build for Backend'
-               // sh 'cd app && mvn clean install -DskipTests -f pom.xml'
+                sh 'cd app && mvn clean install -DskipTests -f pom.xml'
             }
         }
 
 
-// bu
+// building docker image fro front end
+        stage('Build Docker Image for Frontend') {
+           // when {
+               // branch 'master'
+         //   }
+            steps {
+                script {
+                    frontend = docker.build( frontend-registry, "./app/")
+                }
+            }
+        }
 
-
+// Pushing frontwnd docker image to the registry
+        stage('Pushing frontend docker image to reository') {
+            steps {
+                script {
+                    docker.withRegistry('https://registry.hub.docker.com', registryCredential)
+                    frontend.push('latest')
+                }
+            }
+        }
 
 
         // building docker image for backend
@@ -74,11 +90,8 @@ pipeline {
           //  }
             steps {
                 script {
-                   // dockerfile_backend = 'app/Dockerfile'
-                    app = docker.build("backend-image:${env.BUILD_ID}", "./database/")
-                    app.inside {
-                        sh 'echo Hello, World!'
-                    }
+                    backend = docker.build(backend-registry, "./database/")
+                    
                 }
             }
         }
@@ -94,9 +107,8 @@ pipeline {
            // }
             steps {
                 script {
-                    docker.withRegistry('https://hub.docker.com', 'dockerhub') {
-                        app.push("latest")
-                        //app.push("latest")
+                    docker.withRegistry('https://registry.hub.docker.com', registryCredential) {
+                        backend.push("latest")
                     }
                 }
             }
