@@ -74,7 +74,7 @@ pipeline {
             steps {
                 script {
                     echo 'Building docker image'
-                    //frontend = docker.build(frontendregistry, "./app/")
+                    def frontend = docker.build(frontendregistry, "./app/")
                 }
             }
         }
@@ -87,9 +87,9 @@ pipeline {
             steps {
                 script {
                 docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
-                     //app.push()
+                    frontend.push()
                      //sh 'docker tag atsea-shop-demo:latest programmer26/atsea-shop-demo:latest'
-                     sh 'docker push programmer26/atsea-shop-demo'
+                     //sh "docker push programmer26/atsea-shop-demo:latest"
                 }
                
                 }
