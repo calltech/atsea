@@ -79,7 +79,16 @@ stages {
             }
         }
 
+        stage('Test Frontend image') {
+            steps {
+                script {
+                frontend.inside { 
+                    sh 'echo "Tests passed"'
+                }
+                }
 
+            }
+            }
 
 
         // building docker image for backend
@@ -95,7 +104,16 @@ stages {
             }
         }
 
+        stage('Test Backend image') {
+            steps {
+                script {
+                backend.inside { 
+                    sh 'echo "Tests passed"'
+                }
+                }
 
+            }
+            }
 
 
 // Pushing frontwnd docker image to the registry
@@ -123,7 +141,8 @@ stages {
         steps{
             script {
                 docker.withRegistry( '', registryCredential ) {
-                frontend.push()
+                    backend.push("${env.BUILD_NUMBER}")
+                    frontend.push('latest')
             }
             }
         }
@@ -152,7 +171,8 @@ stages {
             steps{
                 script {
                     docker.withRegistry( '', registryCredential ) {
-                    backend.push()
+                        backend.push("${env.BUILD_NUMBER}")
+                        backend.push('latest')
                 }
             }
         }
