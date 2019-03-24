@@ -4,9 +4,9 @@ pipeline {
   agent any
     environment {
         // Define var for docker image 
-        frontend-registry = "programmer26/atsea-shop-demo"
-        backend-registry = "programmer26/atsea-shop-backend"
-        registryCredential = 'dockerhub'
+        frontendregistry = "programmer26/atsea-shop-demo"
+        backendregistry = "programmer26/atsea-shop-backend"
+        registryCredential = "dockerhub"
     }
 
     // Building the application and saving it as an jenkins artifact in dist folder
@@ -67,7 +67,7 @@ pipeline {
          //   }
             steps {
                 script {
-                    frontend = docker.build( frontend-registry, "./app/")
+                    frontend = docker.build(frontendregistry, "./app/")
                 }
             }
         }
@@ -90,7 +90,7 @@ pipeline {
           //  }
             steps {
                 script {
-                    backend = docker.build(backend-registry, "./database/")
+                    backend = docker.build(backendregistry, "./database/")
                     
                 }
             }
