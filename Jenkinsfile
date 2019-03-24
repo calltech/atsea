@@ -75,9 +75,10 @@ pipeline {
 // Pushing frontwnd docker image to the registry
         stage('Pushing frontend docker image to reository') {
             steps {
-                
+                script {
                 docker.withRegistry('https://registry.hub.docker.com', 'dockerhub')
                 frontend.push()
+                }
               
             }
         }
@@ -106,9 +107,10 @@ pipeline {
                 branch 'master'
             }
             steps {
+                script {
                 docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') 
                 backend.push()
-                    
+                }
                 
             }
         }
