@@ -6,7 +6,7 @@ RUN mkdir -p /images/
 
 COPY pg_hba.conf /usr/share/postgresql/9.6/
 COPY postgresql.conf /usr/share/postgresql/9.6/
-RUN ["mkdir", "/docker-entrypoint-initdb.d"]
+#RUN ["mkdir", "/docker-entrypoint-initdb.d"]
 COPY docker-entrypoint-initdb.d/init-db.sql /docker-entrypoint-initdb.d/
 #ADD  docker-entrypoint-initdb.d/ /docker-entrypoint-initdb.d/
 
