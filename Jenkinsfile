@@ -9,7 +9,7 @@ pipeline {
         registryCredential = "dockerhub"
     }
 
-    // Building the application and saving it as an jenkins artifact in dist folder
+    // Building the application and deploying it to kubernetes cluster
 stages {
 
 
@@ -79,7 +79,7 @@ stages {
             }
         }
 
-        stage('Test Frontend image') {
+        stage('Smoke Test Frontend image') {
             steps {
                 script {
                 frontend.inside { 
@@ -104,7 +104,7 @@ stages {
             }
         }
 
-        stage('Test Backend image') {
+        stage('Smoke Test Backend image') {
             steps {
                 script {
                 backend.inside { 
@@ -116,55 +116,18 @@ stages {
             }
 
 
-// Pushing frontwnd docker image to the registry
-        // stage('Pushing frontend docker image to reository') {
-        //     when {
-        //         branch 'master'
-        //     }
-        //     steps {
-        //         script {
-        //         docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
-        //         //frontend.push()
-        //              //sh 'docker tag atsea-shop-demo:latest programmer26/atsea-shop-demo:latest'
-        //         sh "docker login -u programmer26 -p 612254Abc"
-        //         sh "docker push programmer26/atsea-shop-demo:latest"
-        //         }
-               
-        //         }
-              
-        //     }
-        // }
-
-
 
         stage('Deploy Frontend Image') {
         steps{
             script {
                 docker.withRegistry( '', registryCredential ) {
-                    backend.push("${env.BUILD_NUMBER}")
+                    frontend.push("${env.BUILD_NUMBER}")
                     frontend.push('latest')
             }
             }
         }
         }
 
-// pushing docker image to the docker repository
-        // stage('Push Docker Image') {
-        //     when {
-        //         branch 'master'
-        //     }
-        //     steps {
-        //         script {
-        //         docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
-        //             // backend.push()
-        //         sh "docker login -u programmer26 -p 612254Abc"
-        //         sh "docker push programmer26/atsea-shop-backend:latest"
-        //         }
-               
-        //         }
-                
-        //     }
-        // }
 
 
         stage('Deploy backend Image') {
