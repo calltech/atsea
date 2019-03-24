@@ -67,7 +67,7 @@ pipeline {
          //   }
             steps {
                 script {
-                    frontend = docker.build(frontendregistry, "./app/")
+                   def frontend = docker.build(frontendregistry, "./app/")
                 }
             }
         }
@@ -77,7 +77,7 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry('https://registry.hub.docker.com', 'dockerhub')
-                    frontend.push('latest')
+                    frontend.push()
                 }
             }
         }
@@ -90,7 +90,7 @@ pipeline {
           //  }
             steps {
                 script {
-                    backend = docker.build(backendregistry, "./database/")
+                   def backend = docker.build(backendregistry, "./database/")
                     
                 }
             }
@@ -108,7 +108,7 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
-                        backend.push("latest")
+                        backend.push()
                     }
                 }
             }
