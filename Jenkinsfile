@@ -85,8 +85,10 @@ pipeline {
             }
             steps {
                 script {
-                withDockerRegistry('https://registry.hub.docker.com', 'dockerhub')
-                frontend.push()
+                docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
+                     frontend.push()
+                }
+               
                 }
               
             }
@@ -117,8 +119,10 @@ pipeline {
             }
             steps {
                 script {
-                withDockerRegistry('https://registry.hub.docker.com', 'dockerhub') 
-                backend.push()
+                docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
+                     backend.push()
+                }
+               
                 }
                 
             }
