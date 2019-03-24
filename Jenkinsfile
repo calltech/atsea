@@ -87,7 +87,8 @@ pipeline {
             steps {
                 script {
                 docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
-                     app.push()
+                     //app.push()
+                     sh 'docker push -t programmer26/atsea-shop-demo:latest'
                 }
                
                 }
@@ -122,7 +123,7 @@ pipeline {
                 script {
                 docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
                     // backend.push()
-                    sh 'docker push programmer26/atsea-shop-backend:latest'
+                    sh 'docker push -t programmer26/atsea-shop-backend:latest'
                 }
                
                 }
