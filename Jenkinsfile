@@ -67,6 +67,7 @@ pipeline {
 
 
 // building docker image fro front end
+        def frontend
         stage('Build Docker Image for Frontend') {
             when {
                 branch 'master'
@@ -74,7 +75,7 @@ pipeline {
             steps {
                 script {
                     echo 'Building docker image'
-                    def frontend = docker.build(frontendregistry, "./app/")
+                    frontend = docker.build(frontendregistry, "./app/")
                 }
             }
         }
