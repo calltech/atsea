@@ -46,10 +46,10 @@ pipeline {
             }
             steps {
                 echo 'Running build automation'
-                sh 'cd app/react-app && npm prune'
-                sh 'cd app/react-app && npm install'
+                //sh 'cd app/react-app && npm prune'
+               // sh 'cd app/react-app && npm install'
                 //sh 'cd app/react-app && npm test'
-                sh 'cd app/react-app && npm run build'
+               // sh 'cd app/react-app && npm run build'
                 //archiveArtifacts artifacts: 'dist/**' //onlyIfSuccessful: true
             }
         }
@@ -61,7 +61,7 @@ pipeline {
             }
             steps {
                 echo 'Running Build for Backend'
-                sh 'cd app && mvn clean install -DskipTests -f pom.xml'
+                //sh 'cd app && mvn clean install -DskipTests -f pom.xml'
             }
         }
 
@@ -73,7 +73,8 @@ pipeline {
             }
             steps {
                 script {
-                   def frontend = docker.build(frontendregistry, "./app/")
+                    echo 'Building docker image'
+                    //frontend = docker.build(frontendregistry, "./app/")
                 }
             }
         }
@@ -86,7 +87,7 @@ pipeline {
             steps {
                 script {
                 docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
-                     frontend.push()
+                     app.push()
                 }
                
                 }
@@ -102,7 +103,7 @@ pipeline {
             }
             steps {
                 script {
-                   def backend = docker.build(backendregistry, "./database/")
+                   backend = docker.build(backendregistry, "./database/")
                     
                 }
             }
@@ -120,7 +121,8 @@ pipeline {
             steps {
                 script {
                 docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
-                     backend.push()
+                    // backend.push()
+                    sh 'docker push programmer26/atsea-shop-backend:latest'
                 }
                
                 }
