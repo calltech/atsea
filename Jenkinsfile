@@ -146,20 +146,20 @@ stages {
 
 
         // Deploying it to productions
-        // stage('DeployToProduction') {
-        //     when {
-        //         branch 'master'
-        //     }
-        //     steps {
-        //         input 'Deploy to Production?'
-        //         milestone(1)
-        //         kubernetesDeploy(
-        //             kubeconfigId: 'kubeconfig',
-        //             configs: 'assignment01-full.yml',
-        //             enableConfigSubstitution: true
-        //         )
-        //     }
-        // }
+         stage('DeployToProduction') {
+             when {
+                 branch 'master'
+             }
+             steps {
+                 input 'Deploy to Production?'
+                 milestone(1)
+                 kubernetesDeploy(
+                     kubeconfigId: 'kubeconfig',
+                     configs: 'atsea-shop-full.yaml',
+                     enableConfigSubstitution: true
+                 )
+             }
+         }
     }
 }
 
