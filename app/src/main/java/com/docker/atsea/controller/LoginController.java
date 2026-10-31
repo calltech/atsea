@@ -3,7 +3,7 @@ package com.docker.atsea.controller;
 import java.util.Date;
 import java.util.Objects;
 
-import javax.servlet.ServletException;
+import jakarta.servlet.ServletException;
 import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,11 +16,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.docker.atsea.model.Customer;
+import com.docker.atsea.security.JwtKeys;
 import com.docker.atsea.service.CustomerService;
 import com.docker.atsea.util.CustomErrorType;
 
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 
 @RestController
 @RequestMapping(path = "/login/")
@@ -50,10 +50,10 @@ public class LoginController {
 		}
 		
 		if (Objects.deepEquals(login.password, customer.getPassword()) && Objects.equals(login.username, customer.getUsername())) {
-			String token = Jwts.builder().setSubject(login.username)
+			String token = Jwts.builder().subject(login.username)
                 .claim("roles", customer.getUsername())
-                .setIssuedAt(new Date())
-                .signWith(SignatureAlgorithm.HS256,"secretkey")
+                .issuedAt(new Date())
+                .signWith(JwtKeys.get(), Jwts.SIG.HS256)
                 .compact();
 			
 			reponseToken.put("token", token);

@@ -1,10 +1,13 @@
 ---
 server:
   port: 8080
-  contextPath: /
+  servlet:
+    context-path: /
 ---
 spring:
-  profiles: local, default
+  config:
+    activate:
+      on-profile: "local | default"
 datasource:
   atsea:
     url: jdbc:h2:~/test
@@ -17,10 +20,11 @@ datasource:
       hbm2ddl.method: create-drop
       show_sql: true
       format_sql: true
-      dialect: org.hibernate.dialect.H2Dialect
 ---
 spring:
-  profiles: postgres
+  config:
+    activate:
+      on-profile: postgres
   devtools:
     remote:
       secret: secretkey
@@ -48,26 +52,28 @@ datasource:
       hbm2ddl.method: update
       show_sql: true
       format_sql: true
-      dialect: org.hibernate.dialect.PostgreSQLDialect
 ---
 spring:
-  profiles: mysql
+  config:
+    activate:
+      on-profile: mysql
 datasource:
   atsea:
     url: jdbc:mysql://database:3306/atsea
     username: gordonuser
     password: gordonpassword
-    driverClassName: com.mysql.jdbc.Driver
+    driverClassName: com.mysql.cj.jdbc.Driver
     defaultSchema:
     maxPoolSize: 20
     hibernate:
       hbm2ddl.method: update
       show_sql: true
       format_sql: true
-      dialect: org.hibernate.dialect.MySQLDialect
 ---
 spring:
-  profiles: sqlserver
+  config:
+    activate:
+      on-profile: sqlserver
 datasource:
   atsea:
     url: jdbc:sqlserver://database:1433;databaseName=atsea
@@ -80,6 +86,3 @@ datasource:
       hbm2ddl.method: create-drop
       show_sql: true
       format_sql: true
-      dialect: org.hibernate.dialect.SQLServerDialect      
-      
-      
