@@ -2,17 +2,17 @@ package com.docker.atsea.security;
 
 import java.io.IOException;
 
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
 
 import org.springframework.web.filter.GenericFilterBean;
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureException;
 
 public class JwtFilter extends GenericFilterBean {
 
@@ -27,18 +27,19 @@ public class JwtFilter extends GenericFilterBean {
             throw new ServletException("Missing or invalid Authorization header.");
         }
 
-        final String token = authHeader.substring(7); // The part after "Bearer "
+        final String token = authHeader.substring(7);
 
         try {
-            final Claims claims = Jwts.parser().setSigningKey("secretkey")
-                .parseClaimsJws(token).getBody();
+            final Claims claims = Jwts.parser()
+                .verifyWith(JwtKeys.get())
+                .build()
+                .parseSignedClaims(token)
+                .getPayload();
             request.setAttribute("claims", claims);
-        }
-        catch (final SignatureException e) {
-            throw new ServletException("Invalid token.");
+        } catch (final JwtException | IllegalArgumentException e) {
+            throw new ServletException("Invalid token.", e);
         }
 
         chain.doFilter(req, res);
     }
-
 }

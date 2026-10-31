@@ -18,7 +18,7 @@ public class CustomerServiceImpl implements CustomerService {
 	private CustomerRepository customerRepository;
 
 	public Customer findById(Long customerId) {
-		return customerRepository.findOne(customerId);
+		return customerRepository.findById(customerId).orElse(null);
 	}
 
 	public Customer findByUserName(String name) {
@@ -57,6 +57,6 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 
 	public void deleteCustomerById(Long customerId) {
-		customerRepository.delete(customerId);		
+		customerRepository.deleteById(customerId);
 	}
 }

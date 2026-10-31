@@ -10,8 +10,6 @@ import com.docker.atsea.model.Customer;
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer, Long> {
 	
-	Customer findOne(Long customerId);
-	
 	Customer findByName(String name);
 	
 	// adding find by username

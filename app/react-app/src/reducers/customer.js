@@ -14,7 +14,7 @@ const initialState = {
 
 const customer = (state = initialState, action) => {
   switch (action.type) {
-    case `${ADD_USER}`:
+    case ADD_USER:
       return {
         ...state,
         username: action.username

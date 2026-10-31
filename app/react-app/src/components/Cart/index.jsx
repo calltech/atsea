@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 import CartIcon from '../../components/CartIcon'
 import CartNotification from '../../components/CartNotification'
 import './styles.css'

@@ -1,11 +1,12 @@
-import React, { PropTypes } from 'react'
-import FlatButton from 'material-ui/FlatButton'
+import React from 'react'
+import PropTypes from 'prop-types'
+import Button from '../../ui/Button'
 import './styles.css'
 
-const SuccessMessage = ({ message, label, handleClick, containerElement }) => {
+const SuccessMessage = ({ message, label, handleClick, to }) => {
   const styles = {
     color: '#fff',
-    backgroundColor: "#099CEC",
+    backgroundColor: '#099CEC',
   }
   const labelStyles = {
     textTransform: 'none',
@@ -18,10 +19,10 @@ const SuccessMessage = ({ message, label, handleClick, containerElement }) => {
         {message}
       </div>
       <div className="successButton">
-        <FlatButton
+        <Button
           label={label}
           onClick={handleClick}
-          containerElement={containerElement}
+          to={to}
           style={styles}
           labelStyle={labelStyles}
         />
@@ -34,7 +35,7 @@ SuccessMessage.propTypes = {
   label: PropTypes.string.isRequired,
   message: PropTypes.string.isRequired,
   handleClick: PropTypes.func,
-  containerElement: PropTypes.func,
+  to: PropTypes.string,
 }
 
 export default SuccessMessage
