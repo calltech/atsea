@@ -1,21 +1,21 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 import Cart from '../../components/Cart'
-import FlatButton from 'material-ui/FlatButton'
-import { Link } from 'react-router'
+import Button from '../../ui/Button'
 import './styles.css'
 import '../globalStyles.css'
 
 const Title = ({ totalProducts, showItemAdded }) => (
-  <div className='globalContainer'>
-    <div className='titleBar'>
-      <div className='productsSection'>
+  <div className="globalContainer">
+    <div className="titleBar">
+      <div className="productsSection">
         Products
-            </div>
+      </div>
       <div className="checkout-button">
-        <FlatButton
+        <Button
           style={{
             color: '#fff',
-            backgroundColor: "#099CEC",
+            backgroundColor: '#099CEC',
           }}
           labelStyle={{
             textTransform: 'none',
@@ -23,7 +23,7 @@ const Title = ({ totalProducts, showItemAdded }) => (
             fontWeight: 600,
           }}
           label="Checkout"
-          containerElement={<Link to="checkout"> Checkout </Link>}
+          to="/checkout"
         />
       </div>
       <Cart

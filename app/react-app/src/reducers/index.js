@@ -3,14 +3,12 @@ import cart, * as fromCart from './cart'
 import products, * as fromProducts from './products'
 import customer, * as fromCustomer from './customer'
 import container from './container'
-import { reducer as formReducer } from 'redux-form'
 
 export default combineReducers({
   cart,
   products,
   customer,
   container,
-  form: formReducer,
 })
 
 const getAddedIds = state => fromCart.getAddedIds(state.cart)
@@ -58,5 +56,5 @@ export const getTotalProducts = state =>
 export const getCartProducts = state =>
   getAddedIds(state).map(id => ({
     ...getProduct(state, id),
-    quantity: getQuantity(state, id)
+    quantity: getQuantity(state, id),
   }))
